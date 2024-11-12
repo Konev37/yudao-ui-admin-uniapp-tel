@@ -39,7 +39,7 @@
 		},
 		data() {
 			return {
-				captchaEnabled: true, // 验证码开关 TODO 芋艿：需要抽到配置里
+				captchaEnabled: false, // 验证码开关 TODO 芋艿：需要抽到配置里
 				globalConfig: getApp().globalData.config,
 				loginForm: {
 					username: "admin",

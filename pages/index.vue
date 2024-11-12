@@ -2,7 +2,7 @@
   <view class="content">
     <image class="logo" src="/static/logo.png"></image>
     <view class="text-area">
-      <text class="title">Hello 芋道</text>
+      <text class="title">Hello 软研</text>
     </view>
   </view>
 </template>

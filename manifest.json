@@ -57,7 +57,7 @@
     "h5" : {
         "template" : "static/index.html",
         "devServer" : {
-            "port" : 9090,
+            "port" : 9099,
             "https" : false
         },
         "title" : "Yudao-App",
