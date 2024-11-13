@@ -27,48 +27,48 @@
             <text class="text">角色管理</text>
           </view>
         </uni-grid-item>
-        <uni-grid-item>
-          <view class="grid-item-box">
-            <uni-icons type="color" size="30"></uni-icons>
-            <text class="text">菜单管理</text>
-          </view>
-        </uni-grid-item>
+<!--        <uni-grid-item>-->
+<!--          <view class="grid-item-box">-->
+<!--            <uni-icons type="color" size="30"></uni-icons>-->
+<!--            <text class="text">菜单管理</text>-->
+<!--          </view>-->
+<!--        </uni-grid-item>-->
         <uni-grid-item>
           <view class="grid-item-box">
             <uni-icons type="settings-filled" size="30"></uni-icons>
-            <text class="text">部门管理</text>
+            <text class="text">区域管理</text>
           </view>
         </uni-grid-item>
-        <uni-grid-item>
-          <view class="grid-item-box">
-            <uni-icons type="heart-filled" size="30"></uni-icons>
-            <text class="text">岗位管理</text>
-          </view>
-        </uni-grid-item>
-        <uni-grid-item>
-          <view class="grid-item-box">
-            <uni-icons type="bars" size="30"></uni-icons>
-            <text class="text">字典管理</text>
-          </view>
-        </uni-grid-item>
-        <uni-grid-item>
-          <view class="grid-item-box">
-            <uni-icons type="gear-filled" size="30"></uni-icons>
-            <text class="text">参数设置</text>
-          </view>
-        </uni-grid-item>
-        <uni-grid-item>
-          <view class="grid-item-box">
-            <uni-icons type="chat-filled" size="30"></uni-icons>
-            <text class="text">通知公告</text>
-          </view>
-        </uni-grid-item>
-        <uni-grid-item>
-          <view class="grid-item-box">
-            <uni-icons type="wallet-filled" size="30"></uni-icons>
-            <text class="text">日志管理</text>
-          </view>
-        </uni-grid-item>
+<!--        <uni-grid-item>-->
+<!--          <view class="grid-item-box">-->
+<!--            <uni-icons type="heart-filled" size="30"></uni-icons>-->
+<!--            <text class="text">岗位管理</text>-->
+<!--          </view>-->
+<!--        </uni-grid-item>-->
+<!--        <uni-grid-item>-->
+<!--          <view class="grid-item-box">-->
+<!--            <uni-icons type="bars" size="30"></uni-icons>-->
+<!--            <text class="text">字典管理</text>-->
+<!--          </view>-->
+<!--        </uni-grid-item>-->
+<!--        <uni-grid-item>-->
+<!--          <view class="grid-item-box">-->
+<!--            <uni-icons type="gear-filled" size="30"></uni-icons>-->
+<!--            <text class="text">参数设置</text>-->
+<!--          </view>-->
+<!--        </uni-grid-item>-->
+<!--        <uni-grid-item>-->
+<!--          <view class="grid-item-box">-->
+<!--            <uni-icons type="chat-filled" size="30"></uni-icons>-->
+<!--            <text class="text">通知公告</text>-->
+<!--          </view>-->
+<!--        </uni-grid-item>-->
+<!--        <uni-grid-item>-->
+<!--          <view class="grid-item-box">-->
+<!--            <uni-icons type="wallet-filled" size="30"></uni-icons>-->
+<!--            <text class="text">日志管理</text>-->
+<!--          </view>-->
+<!--        </uni-grid-item>-->
       </uni-grid>
     </view>
   </view>
@@ -80,15 +80,31 @@
       return {
         current: 0,
         swiperDotIndex: 0,
-        data: [{
-            image: '/static/images/banner/banner01.jpg'
+        data: [
+          // {
+          //   image: '/static/images/banner/banner01.jpg'
+          // },
+          // {
+          //   image: '/static/images/banner/banner02.jpg'
+          // },
+          // {
+          //   image: '/static/images/banner/banner03.jpg'
+          // },
+          {
+            image: '/static/images/banner/Genshin_1.png'
           },
           {
-            image: '/static/images/banner/banner02.jpg'
+            image: '/static/images/banner/Genshin_2.png'
           },
           {
-            image: '/static/images/banner/banner03.jpg'
-          }
+            image: '/static/images/banner/Genshin_3.png'
+          },
+          {
+            image: '/static/images/banner/Genshin_4.png'
+          },
+          {
+            image: '/static/images/banner/Genshin_5.png'
+          },
         ]
       }
     },

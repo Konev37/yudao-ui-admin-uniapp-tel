@@ -3,7 +3,8 @@
 		<view class="logo-content align-center justify-center flex">
 			<image style="width: 100rpx;height: 100rpx;" :src="globalConfig.appInfo.logo" mode="widthFix">
 			</image>
-			<text class="title">芋道移动端登录</text>
+			<text class="title">城市基础设施信息采集系统</text>
+<!--      <text class="title">移动端登录</text>-->
 		</view>
 		<view class="login-form-content">
 			<view class="input-item flex align-center">
@@ -42,8 +43,10 @@
 				captchaEnabled: false, // 验证码开关 TODO 芋艿：需要抽到配置里
 				globalConfig: getApp().globalData.config,
 				loginForm: {
-					username: "admin",
-					password: "admin123",
+					// username: "admin",
+					// password: "admin123",
+          username: "chenwb1",
+          password: "123456",
 					captchaVerification: ""
 				}
 			}
@@ -115,6 +118,10 @@
 
 			.title {
 				margin-left: 10px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
 			}
 		}
 

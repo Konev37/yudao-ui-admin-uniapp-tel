@@ -3,6 +3,7 @@
     <image class="logo" src="/static/logo.png"></image>
     <view class="text-area">
       <text class="title">Hello 软研</text>
+      <text class="title">城市基础设施信息采集系统</text>
     </view>
   </view>
 </template>
@@ -33,6 +34,8 @@
 
   .text-area {
     display: flex;
+    flex-direction: column;
+    align-items: center;
     justify-content: center;
   }
 
