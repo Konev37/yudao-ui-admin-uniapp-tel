@@ -13,7 +13,7 @@
         </uni-forms-item>
         <!-- TODO 芋艿：uni-data-checkbox 存在问题 -->
         <uni-forms-item label="性别" name="sex" required>
-<!--          <uni-data-checkbox v-model="user.sex" :localdata="sexs" />-->
+          <uni-data-checkbox v-model="user.sex" :localdata="sexs" />
         </uni-forms-item>
       </uni-forms>
       <button type="primary" @click="submit">提交</button>
@@ -50,7 +50,7 @@
           },
           mobile: {
             rules: [{
-              required: true,
+              required: false,
               errorMessage: '手机号码不能为空'
             }, {
               pattern: /^1[3|4|5|6|7|8|9][0-9]\d{8}$/,
@@ -59,13 +59,19 @@
           },
           email: {
             rules: [{
-              required: true,
+              required: false,
               errorMessage: '邮箱地址不能为空'
             }, {
               format: 'email',
               errorMessage: '请输入正确的邮箱地址'
             }]
-          }
+          },
+          sex: {
+            rules: [{
+              required: false,
+              errorMessage: '用户性别不能为空'
+            }]
+          },
         }
       }
     },

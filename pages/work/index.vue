@@ -117,6 +117,11 @@
       },
       changeGrid(e) {
         this.$modal.showToast('模块建设中~')
+        // if (e.index === 0) { // 假设“用户管理”是第一个项目
+        //   this.$tab.navigateTo('/pages/users/index')
+        // } else {
+        //   this.$modal.showToast('模块建设中~')
+        // }
       }
     }
   }
