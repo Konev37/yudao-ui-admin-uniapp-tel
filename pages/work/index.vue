@@ -15,13 +15,14 @@
     <uni-section title="系统管理" type="line"></uni-section>
     <view class="grid-body">
       <uni-grid :column="4" :showBorder="false" @change="changeGrid">
-        <uni-grid-item>
+<!--      <uni-grid :column="4" :showBorder="false">-->
+        <uni-grid-item :index=0>
           <view class="grid-item-box">
             <uni-icons type="person-filled" size="30"></uni-icons>
             <text class="text">用户管理</text>
           </view>
         </uni-grid-item>
-        <uni-grid-item>
+        <uni-grid-item :index=1>
           <view class="grid-item-box">
             <uni-icons type="staff-filled" size="30"></uni-icons>
             <text class="text">角色管理</text>
@@ -33,7 +34,7 @@
 <!--            <text class="text">菜单管理</text>-->
 <!--          </view>-->
 <!--        </uni-grid-item>-->
-        <uni-grid-item>
+        <uni-grid-item :index=2>
           <view class="grid-item-box">
             <uni-icons type="settings-filled" size="30"></uni-icons>
             <text class="text">区域管理</text>
@@ -116,12 +117,20 @@
         this.current = e.detail.current
       },
       changeGrid(e) {
-        this.$modal.showToast('模块建设中~')
-        // if (e.index === 0) { // 假设“用户管理”是第一个项目
-        //   this.$tab.navigateTo('/pages/users/index')
-        // } else {
-        //   this.$modal.showToast('模块建设中~')
-        // }
+        // this.$modal.showToast('模块建设中~')
+        switch (e.detail.index) {
+          case 0: // 用户管理
+            this.$tab.navigateTo('/pages/users/index')
+            break
+          case 1: // 角色管理
+            this.$tab.navigateTo('/pages/roles/index')
+            break
+          case 2: // 区域管理
+            this.$tab.navigateTo('/pages/area/index')
+            break
+          default:
+            this.$modal.showToast('模块建设中~')
+        }
       }
     }
   }

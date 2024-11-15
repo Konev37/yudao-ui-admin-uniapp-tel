@@ -65,13 +65,22 @@
     "style": {
       "navigationBarTitleText": "浏览文本"
     }
+  }, {
+    "path": "pages/users/index",
+    "style": {
+      "navigationBarTitleText": "用户管理"
+    }
+  }, {
+    "path": "pages/roles/index",
+    "style": {
+      "navigationBarTitleText": "角色管理"
+    }
+  }, {
+    "path": "pages/area/index",
+    "style": {
+      "navigationBarTitleText": "区域管理"
+    }
   }
-//    , {
-//    "path": "pages/users/index",
-//    "style": {
-//      "navigationBarTitleText": "用户管理"
-//    }
-//  }
   ],
   "tabBar": {
     "color": "#000000",
