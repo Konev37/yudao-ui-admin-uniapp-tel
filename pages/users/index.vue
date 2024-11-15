@@ -53,20 +53,8 @@ export default {
       this.$refs.inputDialog.open()
     },
     dialogInputConfirm(val) {
-      // uni.showLoading({
-      //   title: '1秒后会关闭'
-      // })
-
       this.value = val
       this.$refs.inputDialog.close()
-
-      setTimeout(() => {
-        // uni.hideLoading()
-        // console.log(val)
-        this.value = val
-        // 关闭窗口后，恢复默认内容
-        this.$refs.inputDialog.close()
-      }, 1000)
     },
   }
 }
