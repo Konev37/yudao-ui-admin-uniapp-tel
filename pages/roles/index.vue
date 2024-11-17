@@ -1,21 +1,22 @@
 <template>
   <view class="container">
-    <uni-section title="输入框示例" type="line" padding>
-      <view class="dialog-box">
-        <text class="dialog-text">输入内容：{{ value }}</text>
+    <uni-section title="表单校验" type="line">
+      <view class="example">
+        <!-- 基础表单校验 -->
+        <uni-forms ref="valiForm" :rules="rules" :modelValue="valiFormData">
+          <uni-forms-item label="姓名" required name="name">
+            <uni-easyinput v-model="valiFormData.name" placeholder="请输入姓名" />
+          </uni-forms-item>
+          <uni-forms-item label="年龄" required name="age">
+            <uni-easyinput v-model="valiFormData.age" placeholder="请输入年龄" />
+          </uni-forms-item>
+          <uni-forms-item label="自我介绍" name="introduction">
+            <uni-easyinput type="textarea" v-model="valiFormData.introduction" placeholder="请输入自我介绍" />
+          </uni-forms-item>
+        </uni-forms>
+        <button type="primary" @click="submit('valiForm')">提交</button>
       </view>
-      <button class="button" type="primary" @click="inputDialogToggle"><text
-          class="button-text">弹出对话框</text></button>
-
     </uni-section>
-
-    <view>
-      <!-- 输入框示例 -->
-      <uni-popup ref="inputDialog" type="dialog">
-        <uni-popup-dialog ref="inputClose"  mode="input" title="输入内容" value="对话框预置提示内容!"
-                          placeholder="请输入内容" @confirm="dialogInputConfirm"></uni-popup-dialog>
-      </uni-popup>
-    </view>
   </view>
 </template>
 
@@ -23,165 +24,77 @@
 export default {
   data() {
     return {
-      // type: 'center',
-      // msgType: 'success',
-      // messageText: '这是一条成功提示',
-      value: ''
+      // 校验表单数据
+      valiFormData: {
+        name: '',
+        age: '',
+        introduction: '',
+      },
+      // 校验规则
+      rules: {
+        name: {
+          rules: [{
+            required: true,
+            errorMessage: '姓名不能为空'
+          }]
+        },
+        age: {
+          rules: [{
+            required: true,
+            errorMessage: '年龄不能为空'
+          }, {
+            format: 'number',
+            errorMessage: '年龄只能输入数字'
+          }]
+        }
+      },
     }
   },
-  onReady() {},
+  onLoad() {},
+  onReady() {
+  },
   methods: {
-    change(e) {
-      console.log('当前模式：' + e.type + ',状态：' + e.show);
-    },
-    inputDialogToggle() {
-      this.$refs.inputDialog.open()
-    },
-    dialogClose() {
-      console.log('点击关闭')
-    },
-    dialogInputConfirm(val) {
-      uni.showLoading({
-        title: '1秒后会关闭'
+    submit(ref) {
+      this.$refs[ref].validate().then(res => {
+        console.log('success', res);
+        uni.showToast({
+          title: `校验通过`
+        })
+      }).catch(err => {
+        console.log('err', err);
       })
-
-      setTimeout(() => {
-        uni.hideLoading()
-        console.log(val)
-        this.value = val
-        // 关闭窗口后，恢复默认内容
-        this.$refs.inputDialog.close()
-      }, 1000)
     },
-    shareToggle() {
-      this.$refs.share.open()
-    }
   }
 }
 </script>
 
 <style lang="scss">
-@mixin flex {
-  /* #ifndef APP-NVUE */
+
+.example {
+  padding: 15px;
+  background-color: #fff;
+}
+
+.segmented-control {
+  margin-bottom: 15px;
+}
+
+.button-group {
+  margin-top: 15px;
   display: flex;
-  /* #endif */
-  flex-direction: row;
+  justify-content: space-around;
 }
 
-@mixin height {
-  /* #ifndef APP-NVUE */
-  height: 100%;
-  /* #endif */
-  /* #ifdef APP-NVUE */
-  flex: 1;
-  /* #endif */
-}
-
-.box {
-  @include flex;
+.form-item {
+  display: flex;
+  align-items: center;
 }
 
 .button {
-  @include flex;
-  align-items: center;
-  justify-content: center;
-  flex: 1;
-  height: 35px;
-  margin: 0 5px;
-  border-radius: 5px;
-}
-
-.example-body {
-  background-color: #fff;
-  padding: 10px 0;
-}
-
-.button-text {
-  color: #fff;
-  font-size: 12px;
-}
-
-.popup-content {
-  @include flex;
-  align-items: center;
-  justify-content: center;
-  padding: 15px;
-  height: 50px;
-  background-color: #fff;
-}
-
-.popup-height {
-  @include height;
-  width: 200px;
-}
-
-.text {
-  font-size: 12px;
-  color: #333;
-}
-
-.popup-success {
-  color: #fff;
-  background-color: #e1f3d8;
-}
-
-.popup-warn {
-  color: #fff;
-  background-color: #faecd8;
-}
-
-.popup-error {
-  color: #fff;
-  background-color: #fde2e2;
-}
-
-.popup-info {
-  color: #fff;
-  background-color: #f2f6fc;
-}
-
-.success-text {
-  color: #09bb07;
-}
-
-.warn-text {
-  color: #e6a23c;
-}
-
-.error-text {
-  color: #f56c6c;
-}
-
-.info-text {
-  color: #909399;
-}
-
-.dialog,
-.share {
-  /* #ifndef APP-NVUE */
   display: flex;
-  /* #endif */
-  flex-direction: column;
-}
-
-.dialog-box {
-  padding: 10px;
-}
-
-.dialog .button,
-.share .button {
-  /* #ifndef APP-NVUE */
-  width: 100%;
-  /* #endif */
-  margin: 0;
-  margin-top: 10px;
-  padding: 3px 0;
-  flex: 1;
-}
-
-.dialog-text {
-  font-size: 14px;
-  color: #333;
+  align-items: center;
+  height: 35px;
+  margin-left: 10px;
 }
 </style>
 
