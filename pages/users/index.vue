@@ -1,5 +1,16 @@
 <template>
   <view class="content">
+    <view class="uni-panel-content">
+      <uni-forms ref="pageForm" :modelValue="userPageVO">
+        <uni-forms-item label="ID" name="id">
+          <uni-easyinput v-model="userPageVO.id" placeholder="请输入ID" />
+        </uni-forms-item>
+        <uni-forms-item label="用户名" name="username">
+          <uni-easyinput v-model="userPageVO.username" placeholder="请输入用户名" />
+        </uni-forms-item>
+      </uni-forms>
+      <button type="primary" size="mini" @click="getUsers(userPageVO)">查询</button>
+    </view>
     <uni-table :data="users" border stripe>
       <uni-tr>
         <uni-th width="20px" align="center">ID</uni-th>
@@ -19,23 +30,22 @@
         </uni-td>
       </uni-tr>
     </uni-table>
-
     <view>
       <uni-popup ref="updateDialog" borderRadius="20px 20px 20px 20px" background-color="#fff">
         <uni-section title="修改用户信息" type="line"/>
-        <uni-forms ref="valiForm" :rules="rules" :modelValue="user">
+        <uni-forms ref="updateForm" :rules="rules" :modelValue="userSaveVO">
           <uni-forms-item label="姓名" required name="username">
-            <uni-easyinput v-model="user.username" placeholder="请输入姓名" />
+            <uni-easyinput v-model="userSaveVO.username" placeholder="请输入姓名" />
           </uni-forms-item>
           <uni-forms-item label="区域" required name="area">
             <uni-data-select
-                v-model="user.deptId"
+                v-model="userSaveVO.deptId"
                 :localdata="areaRange"
                 @change="change"
             ></uni-data-select>
           </uni-forms-item>
         </uni-forms>
-        <button type="primary" @click="submit('valiForm')">提交</button>
+        <button type="primary" @click="submit('updateForm')">提交</button>
       </uni-popup>
     </view>
   </view>
@@ -55,9 +65,13 @@ export default {
     return {
       users: [],
       areas: [],
-      value: '',
+      userPageVO: {
+        pageNo: 1,
+        id: '',
+        username: '',
+      },
       // 校验表单数据
-      user: {
+      userSaveVO: {
         id: '',
         username: '',
         deptId: '',
@@ -86,8 +100,8 @@ export default {
     this.getAreas();
   },
   methods: {
-    getUsers() {
-      getUserPage().then(response => {
+    getUsers(userPageVO) {
+      getUserPage(userPageVO).then(response => {
         this.users = response.data.list.sort((a, b) => a.id - b.id);
       });
     },
@@ -101,9 +115,9 @@ export default {
       });
     },
     popUpdateDialog(user) {
-      this.user.id = user.id;
-      this.user.username = user.username;
-      this.user.deptId = user.deptId;
+      this.userSaveVO.id = user.id;
+      this.userSaveVO.username = user.username;
+      this.userSaveVO.deptId = user.deptId;
       this.$refs.updateDialog.open();
     },
     submit(ref) {
@@ -113,7 +127,7 @@ export default {
         //   title: `修改成功`
         // })
         this.$refs.updateDialog.close()
-        updateUser(this.user).then(response => {
+        updateUser(this.userSaveVO).then(response => {
           this.$modal.msgSuccess("修改成功")
         });
       }).catch(err => {

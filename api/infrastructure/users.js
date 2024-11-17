@@ -1,5 +1,6 @@
 import request from '@/utils/request'
 
+// 获取用户精简信息列表
 export function getSimpleUserList() {
     return request({
         url: '/system/user/simple-list',
@@ -7,10 +8,24 @@ export function getSimpleUserList() {
     })
 }
 
-export function getUserPage() {
+// 查询用户管理列表
+export function getUserPage(params) {
     return request({
         url: '/system/user/page',
-        method: 'GET'
+        method: 'GET',
+        params: params
+    })
+}
+
+// 查询用户详情
+// export const getUser = (id: number) => {
+//     return request.get({ url: '/system/user/get?id=' + id })
+// }
+export function getUser(id) {
+    return request({
+        url: '/system/user/get',
+        method: 'GET',
+        params: { id }
     })
 }
 
