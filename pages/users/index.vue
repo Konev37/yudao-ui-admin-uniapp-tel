@@ -13,7 +13,7 @@
         <uni-td align="center">{{ user.deptName }}</uni-td>
         <uni-td>
           <view class="uni-group">
-            <button class="uni-button" size="mini" type="primary" @click="inputDialogToggle">修改</button>
+            <button class="uni-button" size="mini" type="primary" @click="popUpdateDialog(user)">修改</button>
             <button class="uni-button" size="mini" type="warn">删除</button>
           </view>
         </uni-td>
@@ -21,16 +21,14 @@
     </uni-table>
 
     <view>
-      <uni-popup ref="inputDialog" borderRadius="20px 20px 20px 20px" background-color="#fff">
-<!--        <uni-popup-dialog ref="inputClose" mode="base" title="输入内容" @confirm="submit('valiForm')">-->
-<!--        </uni-popup-dialog>-->
-        <uni-section title="表单校验" type="line"/>
+      <uni-popup ref="updateDialog" borderRadius="20px 20px 20px 20px" background-color="#fff">
+        <uni-section title="修改用户信息" type="line"/>
         <uni-forms ref="valiForm" :rules="rules" :modelValue="valiFormData">
           <uni-forms-item label="姓名" required name="name">
             <uni-easyinput v-model="valiFormData.name" placeholder="请输入姓名" />
           </uni-forms-item>
-          <uni-forms-item label="年龄" required name="age">
-            <uni-easyinput v-model="valiFormData.age" placeholder="请输入年龄" />
+          <uni-forms-item label="区域" required name="area">
+            <uni-easyinput v-model="valiFormData.area" placeholder="请输入区域名称" />
           </uni-forms-item>
           <uni-forms-item label="自我介绍" name="introduction">
             <uni-easyinput type="textarea" v-model="valiFormData.introduction" placeholder="请输入自我介绍" />
@@ -58,7 +56,7 @@ export default {
       // 校验表单数据
       valiFormData: {
         name: '',
-        age: '',
+        area: '',
         introduction: '',
       },
       // 校验规则
@@ -69,13 +67,10 @@ export default {
             errorMessage: '姓名不能为空'
           }]
         },
-        age: {
+        area: {
           rules: [{
             required: true,
-            errorMessage: '年龄不能为空'
-          }, {
-            format: 'number',
-            errorMessage: '年龄只能输入数字'
+            errorMessage: '区域不能为空'
           }]
         }
       },
@@ -90,16 +85,18 @@ export default {
         this.users = response.data.list.sort((a, b) => a.id - b.id);
       });
     },
-    inputDialogToggle() {
-      this.$refs.inputDialog.open()
+    popUpdateDialog(user) {
+      this.valiFormData.name = user.username;
+      this.valiFormData.area = user.deptName;
+      this.$refs.updateDialog.open();
     },
     submit(ref) {
       this.$refs[ref].validate().then(res => {
         console.log('success', res);
         uni.showToast({
-          title: `校验通过`
+          title: `修改成功`
         })
-        this.$refs.inputDialog.close()
+        this.$refs.updateDialog.close()
       }).catch(err => {
         console.log('err', err);
       })
