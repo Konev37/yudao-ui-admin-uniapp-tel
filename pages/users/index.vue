@@ -9,7 +9,8 @@
           <uni-easyinput v-model="userPageVO.username" placeholder="请输入用户名" />
         </uni-forms-item>
       </uni-forms>
-      <button type="primary" size="mini" @click="getUsers(userPageVO)">查询</button>
+      <button type="default" size="mini" @click="getUsers(userPageVO)">查询</button>
+      <button type="primary" size="mini" @click="popUpdateDialog({}, 'create')">新增</button>
     </view>
     <uni-table :data="users" border stripe>
       <uni-tr>
@@ -24,7 +25,7 @@
         <uni-td align="center">{{ user.deptName }}</uni-td>
         <uni-td>
           <view class="uni-group">
-            <button class="uni-button" size="mini" type="primary" @click="popUpdateDialog(user)">修改</button>
+            <button class="uni-button" size="mini" type="primary" @click="popUpdateDialog(user, 'update')">修改</button>
             <button class="uni-button" size="mini" type="warn">删除</button>
           </view>
         </uni-td>
@@ -45,14 +46,35 @@
             ></uni-data-select>
           </uni-forms-item>
         </uni-forms>
-        <button type="primary" @click="submit('updateForm')">提交</button>
+        <button type="primary" @click="update('updateForm')">提交</button>
+      </uni-popup>
+    </view>
+    <view>
+      <uni-popup ref="createDialog" borderRadius="20px 20px 20px 20px" background-color="#fff">
+        <uni-section title="新增用户信息" type="line"/>
+        <uni-forms ref="createForm" :rules="rules" :modelValue="userSaveVO">
+          <uni-forms-item label="姓名" required name="username">
+            <uni-easyinput v-model="userSaveVO.username" placeholder="请输入姓名" />
+          </uni-forms-item>
+          <uni-forms-item label="密码" required name="password">
+            <uni-easyinput v-model="userSaveVO.password" placeholder="请输入密码" />
+          </uni-forms-item>
+          <uni-forms-item label="区域" required name="area">
+            <uni-data-select
+                v-model="userSaveVO.deptId"
+                :localdata="areaRange"
+                @change="change"
+            ></uni-data-select>
+          </uni-forms-item>
+        </uni-forms>
+        <button type="primary" @click="create('createForm')">提交</button>
       </uni-popup>
     </view>
   </view>
 </template>
 
 <script>
-import { getUserPage, updateUser } from "@/api/infrastructure/users";
+import { getUserPage, updateUser, createUser } from "@/api/infrastructure/users";
 import { getSimpleDeptList } from "@/api/infrastructure/area";
 import UniTd from "../../uni_modules/uni-table/components/uni-td/uni-td.vue";
 import UniTh from "../../uni_modules/uni-table/components/uni-th/uni-th.vue";
@@ -74,7 +96,13 @@ export default {
       userSaveVO: {
         id: '',
         username: '',
+        nickname: '',
+        remark: '',
         deptId: '',
+        postIds: [],
+        email: '',
+        mobile: '',
+        password: '',
       },
       // 区域数据
       areaRange: [],
@@ -114,13 +142,17 @@ export default {
         }));
       });
     },
-    popUpdateDialog(user) {
+    popUpdateDialog(user, type) {
       this.userSaveVO.id = user.id;
       this.userSaveVO.username = user.username;
       this.userSaveVO.deptId = user.deptId;
-      this.$refs.updateDialog.open();
+      if (type === 'update') {
+        this.$refs.updateDialog.open();
+      } else if (type === 'create') {
+        this.$refs.createDialog.open();
+      }
     },
-    submit(ref) {
+    update(ref) {
       this.$refs[ref].validate().then(res => {
         console.log('success', res);
         // uni.showToast({
@@ -129,6 +161,20 @@ export default {
         this.$refs.updateDialog.close()
         updateUser(this.userSaveVO).then(response => {
           this.$modal.msgSuccess("修改成功")
+        });
+      }).catch(err => {
+        console.log('err', err);
+      })
+    },
+    create(ref) {
+      this.$refs[ref].validate().then(res => {
+        console.log('success', res);
+        // uni.showToast({
+        //   title: `新增成功`
+        // })
+        this.$refs.createDialog.close()
+        createUser(this.userSaveVO).then(response => {
+          this.$modal.msgSuccess("新增成功")
         });
       }).catch(err => {
         console.log('err', err);

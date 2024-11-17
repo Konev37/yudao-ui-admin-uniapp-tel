@@ -37,3 +37,12 @@ export function updateUser(data) {
         data: data
     })
 }
+
+// 新增用户
+export function createUser(data) {
+    return request({
+        url: '/system/user/create',
+        method: 'POST',
+        data: data
+    })
+}
