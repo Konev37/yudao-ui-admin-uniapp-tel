@@ -13,3 +13,12 @@ export function getUserPage() {
         method: 'GET'
     })
 }
+
+// 修改用户信息
+export function updateUser(data) {
+    return request({
+        url: '/system/user/update',
+        method: 'PUT',
+        data: data
+    })
+}

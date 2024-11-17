@@ -23,20 +23,16 @@
     <view>
       <uni-popup ref="updateDialog" borderRadius="20px 20px 20px 20px" background-color="#fff">
         <uni-section title="修改用户信息" type="line"/>
-        <uni-forms ref="valiForm" :rules="rules" :modelValue="valiFormData">
-          <uni-forms-item label="姓名" required name="name">
-            <uni-easyinput v-model="valiFormData.name" placeholder="请输入姓名" />
+        <uni-forms ref="valiForm" :rules="rules" :modelValue="user">
+          <uni-forms-item label="姓名" required name="username">
+            <uni-easyinput v-model="user.username" placeholder="请输入姓名" />
           </uni-forms-item>
           <uni-forms-item label="区域" required name="area">
-<!--            <uni-easyinput v-model="valiFormData.area" placeholder="请输入区域名称" />-->
             <uni-data-select
-                v-model="valiFormData.area"
+                v-model="user.deptId"
                 :localdata="areaRange"
                 @change="change"
             ></uni-data-select>
-          </uni-forms-item>
-          <uni-forms-item label="自我介绍" name="introduction">
-            <uni-easyinput type="textarea" v-model="valiFormData.introduction" placeholder="请输入自我介绍" />
           </uni-forms-item>
         </uni-forms>
         <button type="primary" @click="submit('valiForm')">提交</button>
@@ -46,7 +42,7 @@
 </template>
 
 <script>
-import { getUserPage } from "@/api/infrastructure/users";
+import { getUserPage, updateUser } from "@/api/infrastructure/users";
 import { getSimpleDeptList } from "@/api/infrastructure/area";
 import UniTd from "../../uni_modules/uni-table/components/uni-td/uni-td.vue";
 import UniTh from "../../uni_modules/uni-table/components/uni-th/uni-th.vue";
@@ -61,22 +57,22 @@ export default {
       areas: [],
       value: '',
       // 校验表单数据
-      valiFormData: {
-        name: '',
-        area: '',
-        introduction: '',
+      user: {
+        id: '',
+        username: '',
+        deptId: '',
       },
       // 区域数据
       areaRange: [],
       // 校验规则
       rules: {
-        name: {
+        username: {
           rules: [{
             required: true,
             errorMessage: '姓名不能为空'
           }]
         },
-        area: {
+        deptId: {
           rules: [{
             required: true,
             errorMessage: '区域不能为空'
@@ -105,17 +101,21 @@ export default {
       });
     },
     popUpdateDialog(user) {
-      this.valiFormData.name = user.username;
-      this.valiFormData.area = user.deptId;
+      this.user.id = user.id;
+      this.user.username = user.username;
+      this.user.deptId = user.deptId;
       this.$refs.updateDialog.open();
     },
     submit(ref) {
       this.$refs[ref].validate().then(res => {
         console.log('success', res);
-        uni.showToast({
-          title: `修改成功`
-        })
+        // uni.showToast({
+        //   title: `修改成功`
+        // })
         this.$refs.updateDialog.close()
+        updateUser(this.user).then(response => {
+          this.$modal.msgSuccess("修改成功")
+        });
       }).catch(err => {
         console.log('err', err);
       })
