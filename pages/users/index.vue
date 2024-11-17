@@ -26,7 +26,7 @@
         <uni-td>
           <view class="uni-group">
             <button class="uni-button" size="mini" type="primary" @click="popUpdateDialog(user, 'update')">修改</button>
-            <button class="uni-button" size="mini" type="warn">删除</button>
+            <button class="uni-button" size="mini" type="warn" @click="deleteUser(user.id)">删除</button>
           </view>
         </uni-td>
       </uni-tr>
@@ -46,7 +46,7 @@
             ></uni-data-select>
           </uni-forms-item>
         </uni-forms>
-        <button type="primary" @click="update('updateForm')">提交</button>
+        <button type="primary" @click="updateUser('updateForm')">提交</button>
       </uni-popup>
     </view>
     <view>
@@ -67,14 +67,14 @@
             ></uni-data-select>
           </uni-forms-item>
         </uni-forms>
-        <button type="primary" @click="create('createForm')">提交</button>
+        <button type="primary" @click="createUser('createForm')">提交</button>
       </uni-popup>
     </view>
   </view>
 </template>
 
 <script>
-import { getUserPage, updateUser, createUser } from "@/api/infrastructure/users";
+import { getUserPage, updateUser, createUser, deleteUser } from "@/api/infrastructure/users";
 import { getSimpleDeptList } from "@/api/infrastructure/area";
 import UniTd from "../../uni_modules/uni-table/components/uni-td/uni-td.vue";
 import UniTh from "../../uni_modules/uni-table/components/uni-th/uni-th.vue";
@@ -146,13 +146,14 @@ export default {
       this.userSaveVO.id = user.id;
       this.userSaveVO.username = user.username;
       this.userSaveVO.deptId = user.deptId;
+      this.userSaveVO.password = user.password;
       if (type === 'update') {
         this.$refs.updateDialog.open();
       } else if (type === 'create') {
         this.$refs.createDialog.open();
       }
     },
-    update(ref) {
+    updateUser(ref) {
       this.$refs[ref].validate().then(res => {
         console.log('success', res);
         // uni.showToast({
@@ -161,12 +162,13 @@ export default {
         this.$refs.updateDialog.close()
         updateUser(this.userSaveVO).then(response => {
           this.$modal.msgSuccess("修改成功")
+          this.getUsers(this.userPageVO); // 刷新表格数据
         });
       }).catch(err => {
         console.log('err', err);
       })
     },
-    create(ref) {
+    createUser(ref) {
       this.$refs[ref].validate().then(res => {
         console.log('success', res);
         // uni.showToast({
@@ -175,6 +177,7 @@ export default {
         this.$refs.createDialog.close()
         createUser(this.userSaveVO).then(response => {
           this.$modal.msgSuccess("新增成功")
+          this.getUsers(this.userPageVO); // 刷新表格数据
         });
       }).catch(err => {
         console.log('err', err);
@@ -183,6 +186,25 @@ export default {
     change(e) {
       console.log("e:", e);
     },
+    deleteUser(id) {
+      // console.log("user:", id);
+      // 再次确认
+      uni.showModal({
+        title: '提示',
+        content: '是否删除该用户？',
+        success: (res) => {
+          if (res.confirm) {
+            // uni.showToast({
+            //   title: `删除成功`
+            // })
+            deleteUser(id).then(response => {
+              this.$modal.msgSuccess("删除成功")
+              this.getUsers(this.userPageVO); // 刷新表格数据
+            });
+          }
+        }
+      });
+    }
   }
 }
 </script>

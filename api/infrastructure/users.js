@@ -18,9 +18,6 @@ export function getUserPage(params) {
 }
 
 // 查询用户详情
-// export const getUser = (id: number) => {
-//     return request.get({ url: '/system/user/get?id=' + id })
-// }
 export function getUser(id) {
     return request({
         url: '/system/user/get',
@@ -44,5 +41,14 @@ export function createUser(data) {
         url: '/system/user/create',
         method: 'POST',
         data: data
+    })
+}
+
+// 删除用户
+export function deleteUser(id) {
+    return request({
+        url: '/system/user/delete',
+        method: 'DELETE',
+        params: { id }
     })
 }
