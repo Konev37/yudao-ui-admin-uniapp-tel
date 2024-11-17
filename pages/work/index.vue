@@ -40,6 +40,12 @@
             <text class="text">区域管理</text>
           </view>
         </uni-grid-item>
+        <uni-grid-item :index=3>
+          <view class="grid-item-box">
+            <uni-icons type="color" size="30"></uni-icons>
+            <text class="text">测试页面</text>
+          </view>
+        </uni-grid-item>
 <!--        <uni-grid-item>-->
 <!--          <view class="grid-item-box">-->
 <!--            <uni-icons type="heart-filled" size="30"></uni-icons>-->
@@ -127,6 +133,9 @@
             break
           case 2: // 区域管理
             this.$tab.navigateTo('/pages/area/index')
+            break
+          case 3:
+            this.$tab.navigateTo('/pages/test')
             break
           default:
             this.$modal.showToast('模块建设中~')

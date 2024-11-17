@@ -28,7 +28,12 @@
             <uni-easyinput v-model="valiFormData.name" placeholder="请输入姓名" />
           </uni-forms-item>
           <uni-forms-item label="区域" required name="area">
-            <uni-easyinput v-model="valiFormData.area" placeholder="请输入区域名称" />
+<!--            <uni-easyinput v-model="valiFormData.area" placeholder="请输入区域名称" />-->
+            <uni-data-select
+                v-model="valiFormData.area"
+                :localdata="areaRange"
+                @change="change"
+            ></uni-data-select>
           </uni-forms-item>
           <uni-forms-item label="自我介绍" name="introduction">
             <uni-easyinput type="textarea" v-model="valiFormData.introduction" placeholder="请输入自我介绍" />
@@ -42,6 +47,7 @@
 
 <script>
 import { getUserPage } from "@/api/infrastructure/users";
+import { getSimpleDeptList } from "@/api/infrastructure/area";
 import UniTd from "../../uni_modules/uni-table/components/uni-td/uni-td.vue";
 import UniTh from "../../uni_modules/uni-table/components/uni-th/uni-th.vue";
 import UniTr from "../../uni_modules/uni-table/components/uni-tr/uni-tr.vue";
@@ -52,6 +58,7 @@ export default {
   data() {
     return {
       users: [],
+      areas: [],
       value: '',
       // 校验表单数据
       valiFormData: {
@@ -59,6 +66,8 @@ export default {
         area: '',
         introduction: '',
       },
+      // 区域数据
+      areaRange: [],
       // 校验规则
       rules: {
         name: {
@@ -78,6 +87,7 @@ export default {
   },
   onLoad() {
     this.getUsers();
+    this.getAreas();
   },
   methods: {
     getUsers() {
@@ -85,9 +95,18 @@ export default {
         this.users = response.data.list.sort((a, b) => a.id - b.id);
       });
     },
+    getAreas() {
+      getSimpleDeptList().then(response => {
+        this.areas = response.data.sort((a, b) => a.id - b.id);
+        this.areaRange = this.areas.map(area => ({
+          value: area.id,
+          text: area.name
+        }));
+      });
+    },
     popUpdateDialog(user) {
       this.valiFormData.name = user.username;
-      this.valiFormData.area = user.deptName;
+      this.valiFormData.area = user.deptId;
       this.$refs.updateDialog.open();
     },
     submit(ref) {
@@ -100,6 +119,9 @@ export default {
       }).catch(err => {
         console.log('err', err);
       })
+    },
+    change(e) {
+      console.log("e:", e);
     },
   }
 }
