@@ -34,3 +34,12 @@ export function updateDept(data) {
         data: data
     })
 }
+
+// 删除部门
+export function deleteDept(id) {
+    return request({
+        url: '/system/dept/delete',
+        method: 'DELETE',
+        params: { id }
+    })
+}

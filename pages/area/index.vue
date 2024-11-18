@@ -24,7 +24,7 @@
         <uni-td>
           <view class="uni-group">
             <button class="uni-button" size="mini" type="primary" @click="popDialog(area, 'update')">修改</button>
-            <button class="uni-button" size="mini" type="warn">删除</button>
+            <button class="uni-button" size="mini" type="warn" @click="deleteDept(area.id)">删除</button>
           </view>
         </uni-td>
       </uni-tr>
@@ -67,7 +67,7 @@
 </template>
 
 <script>
-import {getDeptPage, getSimpleDeptList, createDept, updateDept} from "@/api/infrastructure/area";
+import {getDeptPage, getSimpleDeptList, createDept, updateDept, deleteDept} from "@/api/infrastructure/area";
 import UniTh from "../../uni_modules/uni-table/components/uni-th/uni-th.vue";
 
 export default {
@@ -143,6 +143,7 @@ export default {
         createDept(this.areaSaveVO).then(response => {
           this.$modal.msgSuccess("新增成功")
           this.getAreas(this.areaPageVO); // 刷新表格数据
+          this.getSimpleAreas();
         });
       }).catch(err => {
         console.log('err', err);
@@ -158,10 +159,26 @@ export default {
         updateDept(this.areaSaveVO).then(response => {
           this.$modal.msgSuccess("修改成功")
           this.getAreas(this.areaPageVO); // 刷新表格数据
+          this.getSimpleAreas();
         });
       }).catch(err => {
         console.log('err', err);
       })
+    },
+    deleteDept(id) {
+      uni.showModal({
+        title: '提示',
+        content: '确定删除该区域吗？',
+        success: (res) => {
+          if (res.confirm) {
+            deleteDept(id).then(response => {
+              this.$modal.msgSuccess("删除成功")
+              this.getAreas(this.areaPageVO); // 刷新表格数据
+              this.getSimpleAreas();
+            });
+          }
+        }
+      });
     }
   }
 }
