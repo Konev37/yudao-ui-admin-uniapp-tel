@@ -8,3 +8,11 @@ export function getRolePage(params) {
         params: params
     })
 }
+
+// 查询角色（精简)列表
+export function getSimpleRoleList() {
+    return request({
+        url: '/system/role/simple-list',
+        method: 'GET'
+    })
+}

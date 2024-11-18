@@ -10,7 +10,7 @@
         </uni-forms-item>
       </uni-forms>
       <button type="default" size="mini" @click="getUsers(userPageVO)">查询</button>
-      <button type="primary" size="mini" @click="popUpdateDialog({}, 'create')">新增</button>
+      <button type="primary" size="mini" @click="popDialog({}, 'create')">新增</button>
     </view>
     <uni-table :data="users" border stripe>
       <uni-tr>
@@ -25,7 +25,7 @@
         <uni-td align="center">{{ user.deptName }}</uni-td>
         <uni-td>
           <view class="uni-group">
-            <button class="uni-button" size="mini" type="primary" @click="popUpdateDialog(user, 'update')">修改</button>
+            <button class="uni-button" size="mini" type="primary" @click="popDialog(user, 'update')">修改</button>
             <button class="uni-button" size="mini" type="warn" @click="deleteUser(user.id)">删除</button>
           </view>
         </uni-td>
@@ -76,6 +76,7 @@
 <script>
 import { getUserPage, updateUser, createUser, deleteUser } from "@/api/infrastructure/users";
 import { getSimpleDeptList } from "@/api/infrastructure/area";
+import { getSimpleRoleList } from "@/api/infrastructure/roles";
 import UniTd from "../../uni_modules/uni-table/components/uni-td/uni-td.vue";
 import UniTh from "../../uni_modules/uni-table/components/uni-th/uni-th.vue";
 import UniTr from "../../uni_modules/uni-table/components/uni-tr/uni-tr.vue";
@@ -142,7 +143,7 @@ export default {
         }));
       });
     },
-    popUpdateDialog(user, type) {
+    popDialog(user, type) {
       this.userSaveVO.id = user.id;
       this.userSaveVO.username = user.username;
       this.userSaveVO.deptId = user.deptId;
