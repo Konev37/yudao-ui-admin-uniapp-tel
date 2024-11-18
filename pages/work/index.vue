@@ -46,18 +46,18 @@
             <text class="text">基础设施管理</text>
           </view>
         </uni-grid-item>
+        <uni-grid-item :index=4>
+          <view class="grid-item-box">
+            <uni-icons type="bars" size="30"></uni-icons>
+            <text class="text">消防栓管理</text>
+          </view>
+        </uni-grid-item>
         <uni-grid-item :index=9>
           <view class="grid-item-box">
             <uni-icons type="color" size="30"></uni-icons>
             <text class="text">测试页面</text>
           </view>
         </uni-grid-item>
-<!--        <uni-grid-item>-->
-<!--          <view class="grid-item-box">-->
-<!--            <uni-icons type="heart-filled" size="30"></uni-icons>-->
-<!--            <text class="text">岗位管理</text>-->
-<!--          </view>-->
-<!--        </uni-grid-item>-->
 <!--        <uni-grid-item>-->
 <!--          <view class="grid-item-box">-->
 <!--            <uni-icons type="bars" size="30"></uni-icons>-->
@@ -142,6 +142,9 @@
             break
           case 3: // 基础设施管理
             this.$tab.navigateTo('/pages/base/index')
+            break
+          case 4: // 消防栓管理
+            this.$tab.navigateTo('/pages/fire/index')
             break
           case 9:
             this.$tab.navigateTo('/pages/test')

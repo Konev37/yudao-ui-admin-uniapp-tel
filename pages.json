@@ -86,6 +86,11 @@
       "navigationBarTitleText": "基础设施管理"
     }
   }, {
+    "path": "pages/fire/index",
+    "style": {
+      "navigationBarTitleText": "消防栓管理"
+    }
+  }, {
     "path": "pages/test",
     "style": {
       "navigationBarTitleText": "测试页面"
