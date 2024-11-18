@@ -154,10 +154,10 @@ export default {
     createFire(ref) {
       this.$refs[ref].validate().then(() => {
         this.$refs.createDialog.close()
-		    if(this.fireSaveVO.type === '') {
+		    if (this.fireSaveVO.type === '') {
           this.fireSaveVO.type = null
         }
-        if(this.fireSaveVO.status === '') {
+        if (this.fireSaveVO.status === '') {
           this.fireSaveVO.status = null
         }
         createFire(this.fireSaveVO).then(() => {

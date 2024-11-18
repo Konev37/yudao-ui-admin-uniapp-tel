@@ -52,6 +52,12 @@
             <text class="text">消防栓管理</text>
           </view>
         </uni-grid-item>
+        <uni-grid-item :index=5>
+          <view class="grid-item-box">
+            <uni-icons type="gear-filled" size="30"></uni-icons>
+            <text class="text">垃圾桶管理</text>
+          </view>
+        </uni-grid-item>
         <uni-grid-item :index=9>
           <view class="grid-item-box">
             <uni-icons type="color" size="30"></uni-icons>
@@ -145,6 +151,9 @@
             break
           case 4: // 消防栓管理
             this.$tab.navigateTo('/pages/fire/index')
+            break
+          case 5: // 垃圾桶管理
+            this.$tab.navigateTo('/pages/trash/index')
             break
           case 9:
             this.$tab.navigateTo('/pages/test')
