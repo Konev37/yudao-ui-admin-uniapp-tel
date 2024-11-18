@@ -22,12 +22,12 @@
             <text class="text">用户管理</text>
           </view>
         </uni-grid-item>
-        <uni-grid-item :index=1>
-          <view class="grid-item-box">
-            <uni-icons type="staff-filled" size="30"></uni-icons>
-            <text class="text">角色管理</text>
-          </view>
-        </uni-grid-item>
+<!--        <uni-grid-item :index=1>-->
+<!--          <view class="grid-item-box">-->
+<!--            <uni-icons type="staff-filled" size="30"></uni-icons>-->
+<!--            <text class="text">角色管理</text>-->
+<!--          </view>-->
+<!--        </uni-grid-item>-->
 <!--        <uni-grid-item>-->
 <!--          <view class="grid-item-box">-->
 <!--            <uni-icons type="color" size="30"></uni-icons>-->
@@ -41,6 +41,12 @@
           </view>
         </uni-grid-item>
         <uni-grid-item :index=3>
+          <view class="grid-item-box">
+            <uni-icons type="heart-filled" size="30"></uni-icons>
+            <text class="text">基础设施管理</text>
+          </view>
+        </uni-grid-item>
+        <uni-grid-item :index=9>
           <view class="grid-item-box">
             <uni-icons type="color" size="30"></uni-icons>
             <text class="text">测试页面</text>
@@ -134,7 +140,10 @@
           case 2: // 区域管理
             this.$tab.navigateTo('/pages/area/index')
             break
-          case 3:
+          case 3: // 基础设施管理
+            this.$tab.navigateTo('/pages/base/index')
+            break
+          case 9:
             this.$tab.navigateTo('/pages/test')
             break
           default:

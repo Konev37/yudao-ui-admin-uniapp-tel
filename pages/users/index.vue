@@ -210,7 +210,7 @@ export default {
 }
 </script>
 
-<style>
+<style lang="scss">
 .uni-group {
   display: flex;
   justify-content: center;
