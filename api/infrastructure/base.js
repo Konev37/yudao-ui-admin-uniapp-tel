@@ -8,3 +8,29 @@ export function getInfrastructurePage(params) {
         params: params
     })
 }
+
+// 新增基础设施
+export function createInfrastructure(data) {
+    return request({
+        url: '/infrastructure/infrastr/create',
+        method: 'POST',
+        data: data
+    })
+}
+
+// 修改基础设施
+export function updateInfrastructure(data) {
+    return request({
+        url: '/infrastructure/infrastr/update',
+        method: 'PUT',
+        data: data
+    })
+}
+
+// 删除基础设施
+export function deleteInfrastructure(id) {
+    return request({
+        url: '/infrastructure/infrastr/delete?id=' + id,
+        method: 'DELETE'
+    })
+}
