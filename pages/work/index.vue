@@ -58,12 +58,12 @@
             <text class="text">垃圾桶管理</text>
           </view>
         </uni-grid-item>
-        <uni-grid-item :index=9>
-          <view class="grid-item-box">
-            <uni-icons type="color" size="30"></uni-icons>
-            <text class="text">测试页面</text>
-          </view>
-        </uni-grid-item>
+<!--        <uni-grid-item :index=9>-->
+<!--          <view class="grid-item-box">-->
+<!--            <uni-icons type="color" size="30"></uni-icons>-->
+<!--            <text class="text">测试页面</text>-->
+<!--          </view>-->
+<!--        </uni-grid-item>-->
 <!--        <uni-grid-item>-->
 <!--          <view class="grid-item-box">-->
 <!--            <uni-icons type="bars" size="30"></uni-icons>-->
